@@ -1,27 +1,13 @@
 # DeepFake-Detection-Using-Capsule-Network
+Please follow these steps to use the Capsule network in conjunction with VGG-19 to detect manipulation in faces:
+1. Download the processed dataset from https://seafile.idmt.fraunhofer.de/u/d/b639276d15b9423bb11f/. Store the real images with "0_" as a prefix and fake images should have "1_", "2_", and "3_" as prefixes.
 
-## Capsule forensic
-The Capsule network is used in conjunction with VGG-19 to detect the manipulation in the faces. Our implementation is based on [https://arxiv.org/pdf/1810.11215.pdf](https://arxiv.org/pdf/1810.11215.pdf). 
+2. Extract frames from videos using the "Rename and Frame Extraction.ipynb" file and add only the directory path.
 
-** Dataset:**
-The processed dataset could be downloaded from this link: [https://seafile.idmt.fraunhofer.de/u/d/b639276d15b9423bb11f/](https://seafile.idmt.fraunhofer.de/u/d/b639276d15b9423bb11f/)
-The processed database must be stored with the label "0_" as a prefix for the real images and else (e.g., 1_ , 2_....) for all fake directories.
+3. Follow the instructions in the "Data_Analysis.ipynb" file to create the test, train, and cv directory with cropped faces from the extracted frames.
 
-**Step 1:**
- - Extract the frames from the videos using the file `"Rename and Frame Extraction.ipynb"` by only adding the directory path.
+4. Organize the database as described above before training the model. Change the parameters in the "train_binary_ffpp.py" file accordingly, such as the dataset path (where the train, test, and validation directories are located), checkpoints (where the model and its checkpoints will be saved), and dropout value. Check the source code for more details on parameters.
 
-**Step 2:**
- - Follow the instructions in file `" Data_Analysis.ipynb"` to create the test, train, and cv directory with only the cropped faces from the frames extracted earlier.
- - Add manually "0_" to the folder with real images and "1_", "2_", and "3_" to directories with fake images.
+5. We trained three different capsule network variants using 5%, 10%, and 20% dropouts. The training files, checkpoints, and datasets are in their corresponding directories. Check the "CapsuleNet.ipynb" file for the evaluation results of the models.
 
-
-**Step 3:**
- - To train the model, the database must be organized as told earlier.
- -  Afterwards, the parameters of the training file (`"train_binary_ffpp.py"`) must be changed accordingly, such as the path of the dataset (where the train, test, and validation directories are located), checkpoints (where the model and its checkpoints will be saved), dropout value and many other. Parameters detail could be seen in the corresponding source code.
- - We have trained three different capsule network variants using **5%, 10%, and 20%** dropouts. Our training files, checkpoints, and dataset could be found in their corresponding directories directory. 
- - The evaluation results of the models could be found in the file `"CapsuleNet.ipynb"`.
- 
- **Step 5:**
-
- - To evaluate the model on an unseen Dataset or test dataset, use the file `"test_binary_ffpp.py"`.
- - Change the parameters such as saved checkpoint directory path, and test data path.
+6. Use the "test_binary_ffpp.py" file to evaluate the model on an unseen dataset or test dataset. Change the parameters, such as the saved checkpoint directory path and test data path.
